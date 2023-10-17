@@ -24,3 +24,5 @@ class Project:
 
         return Project(path)
 
+    def new_document(self, title: str, stub: str):
+        setup_data = {"title": title}
