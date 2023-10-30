@@ -1,13 +1,20 @@
 
 # Library import
-import configg
 import json
+import os
+
+# Project imports
+from json_data_class import JsonDataClass
+from document import Document
 
 
-class Project:
+class Project(JsonDataClass):
 
     def __init__(self, path: str):
-        self._data = configg.Configg(path, data_backend=configg.JSON_BACKEND)
+        super().__init__(path)
+        self.path = os.path.split(path)[0]
+
+
 
     @classmethod
     def new(cls, path: str):
@@ -25,4 +32,13 @@ class Project:
         return Project(path)
 
     def new_document(self, title: str, stub: str):
-        setup_data = {"title": title}
+        setup_data = {"title": title, "stub": stub}
+        if stub in self.data["documents"].keys():
+            raise Exception("Stub not unique")
+        self.data["documents"][stub] = setup_data
+
+        with open(f"{self.path}//{stub}.json", "x") as fp:
+            json.dump(setup_data, fp)
+
+    def open_document(self, stub: str):
+        return Document(self, stub)
