@@ -16,7 +16,7 @@ class JsonDataClass:
 
     def save(self):
         with open(self._file_path, "w+") as fp:
-            json.dump(self.data, fp)
+            json.dump(self.data, fp, sort_keys=False, indent=4)
 
     def lock(self):
         pass

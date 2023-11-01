@@ -2,6 +2,7 @@
 # Library import
 import json
 import os
+import uuid
 
 # Project imports
 from json_data_class import JsonDataClass
@@ -13,8 +14,6 @@ class Project(JsonDataClass):
     def __init__(self, path: str):
         super().__init__(path)
         self.path = os.path.split(path)[0]
-
-
 
     @classmethod
     def new(cls, path: str):
@@ -31,7 +30,7 @@ class Project(JsonDataClass):
 
         return Project(path)
 
-    def new_document(self, title: str, stub: str):
+    def new_document(self, title: str, stub: str) -> Document:
         setup_data = {"title": title, "stub": stub}
         if stub in self.data["documents"].keys():
             raise Exception("Stub not unique")
@@ -40,5 +39,11 @@ class Project(JsonDataClass):
         with open(f"{self.path}//{stub}.json", "x") as fp:
             json.dump(setup_data, fp)
 
-    def open_document(self, stub: str):
+        return self.open_document(stub)
+
+    def open_document(self, stub: str) -> Document:
         return Document(self, stub)
+
+
+    def new_uid(self) -> str:
+        return uuid.uuid4().hex
