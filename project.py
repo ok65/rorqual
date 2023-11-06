@@ -7,13 +7,15 @@ import uuid
 # Project imports
 from json_data_class import JsonDataClass
 from document import Document
+from linkage import Linkage
+from artefact import Artefact
 
 
 class Project(JsonDataClass):
 
     def __init__(self, path: str):
-        super().__init__(path)
         self.path = os.path.split(path)[0]
+        super().__init__(uid="0", json_path=path)
 
     @classmethod
     def new(cls, path: str):
@@ -28,22 +30,31 @@ class Project(JsonDataClass):
         with open(path, "x") as fp:
             json.dump(setup_data, fp)
 
-        return Project(path)
+        return cls(path=path)
 
-    def new_document(self, title: str, stub: str) -> Document:
-        setup_data = {"title": title, "stub": stub}
-        if stub in self.data["documents"].keys():
-            raise Exception("Stub not unique")
-        self.data["documents"][stub] = setup_data
+    def new_document(self, uid: str, title: str) -> Document:
+        if uid in self.data["documents"].keys():
+            raise Exception("Document uid already in use")
+        self.data["documents"][uid] = {"uid": uid}
 
-        with open(f"{self.path}//{stub}.json", "x") as fp:
-            json.dump(setup_data, fp)
-
-        return self.open_document(stub)
+        return Document.new(self, f"{self.path}//{uid}.json", uid=uid, title=title)
 
     def open_document(self, stub: str) -> Document:
         return Document(self, stub)
 
+    def find_artefact(self, uid: str) -> Artefact:
+
+        # At some point put lookup cache here
+
+        # Horrible slow code to scan through every doc looking for an artefact
+        for doc_name in self.data["documents"]:
+            doc = self.open_document(doc_name)
+            try:
+                art = doc.get_local_artefact(uid)
+            except IndexError:
+                continue
+            else:
+                return art
 
     def new_uid(self) -> str:
         return uuid.uuid4().hex

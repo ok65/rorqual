@@ -12,37 +12,39 @@ if TYPE_CHECKING:
 
 class Document(JsonDataClass):
 
-    def __init__(self, project: 'Project', stub: str):
+    def __init__(self, project: 'Project', uid: str):
         self._project = project
-        super().__init__(f"{self._project.path}//{stub}.json")
+        super().__init__(uid, f"{self._project.path}//{uid}.json")
+
+    @property
+    def title(self):
+        return self.data["title"]
 
     @classmethod
-    def new(cls, path, title, stub):
-        setup_data = {"header": {"title": title, "stub": stub, "next_id": 1, "list_of_ids": []}, "content": []}
+    def new(cls, project: 'Project', path: str, uid: str, title: str) -> 'Document':
+        setup_data = {"uid": uid, "title": title, "next_art_uid": 1, "content": [], "links": []}
         with open(path, "x") as fp:
             json.dump(setup_data, fp)
+        return cls(project=project, uid=uid)
 
-    def add_item(self, content: Dict, ):
+    def new_artefact(self, content: str, index: int = -1) -> Artefact:
+        index = index if index >= 0 else len(self.data["content"])
+        return Artefact.new(self, uid=self._new_uid(), content=content, index=index)
+
+    def get_local_artefact(self, uid):
+        a = [art for art in self.data["content"] if art.uid == uid][0]
+        return Artefact(uid=uid, document=self, )
+
+    def new_linkage(self, source_artefact: Artefact, destination_doc_id: str, destination_art_id: str, link_type: str):
         pass
 
-    def new_artefact(self, text_content: str, index: int = -1):
-        _id =  self._get_next_id()
-        index = index if index >= 0 else len(self.data["header"]["list_of_ids"])
-        self.data["content"].insert(index, {"id": _id, "content": text_content})
-        self.data["header"]["list_of_ids"].append(_id)
-        return self.get(_id)
-
-    def get(self, id):
-        if id in self.data["header"]["list_of_ids"]:
-            return Artefact(self, id)
-
-    def _get_next_id(self) -> int:
-        _id = self.data["header"]["next_id"]
-        self.data["header"]["next_id"] += 1
-        return _id
+    def _new_uid(self) -> str:
+        uid = self.data["next_art_uid"]
+        self.data["next_art_uid"] += 1
+        return str(uid)
 
     def get_artefact_list(self) -> List:
         artefacts = []
         for d in self.data["content"]:
-            artefacts.append(self.get(d["id"]))
+            artefacts.append(self.get(d["uid"]))
         return artefacts

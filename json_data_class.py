@@ -2,10 +2,14 @@
 # Library imports
 import json
 
+# Project imports
+from base import Base
 
-class JsonDataClass:
 
-    def __init__(self, json_path: str):
+class JsonDataClass(Base):
+
+    def __init__(self, uid: str, json_path: str):
+        super().__init__(uid)
         self.data = {}
         self._file_path = json_path
         self.load()
