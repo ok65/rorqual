@@ -42,6 +42,12 @@ class ProjectTests(RorqualTestBase):
     def test_new_project(self):
         self.assertIsInstance(self.project, Project)
 
+    def test_find_artefact(self):
+        fruit_doc = self.project.new_document("D1", "Fruit")
+        art1 = fruit_doc.new_artefact("Fruit must grow on tree or bush")
+        art2 = self.project.find_artefact(art1.uid)
+        self.assertEqual(art1.content, art2.content)
+
 
 class DocumentTests(RorqualTestBase):
 
@@ -55,13 +61,14 @@ class DocumentTests(RorqualTestBase):
         self.assertEquals(doc.title, TITLE)
 
     def test_new_artefact(self):
-
         doc = self.project.new_document(uid="apl", title="Apples")
+        self.assertEqual(len(doc.get_artefact_list()), 0)
+        art = doc.new_artefact("Test artefact")
+        self.assertEqual(len(doc.get_artefact_list()), 1)
 
-        artefact_list = doc.get_artefact_list()
-
-        self.assertEqual(len(artefact_list), 0)
-
-        doc.new_artefact("Test artefact")
-
-        self.assertEqual(len(artefact_list), 1)
+    def test_properties(self):
+        TITLE = "apples"
+        doc = self.project.new_document(uid="apl", title=TITLE)
+        self.assertEqual(doc.title, TITLE)
+        doc.title = TITLE = "oranges"
+        self.assertEqual(doc.title, TITLE)

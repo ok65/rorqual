@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from project import Project
     from document import Document
-from artefact import Artefact
+    from artefact import Artefact
 
 
 class Linkage:
@@ -31,9 +31,9 @@ class Linkage:
         return cls(source_artefact.document, uid)
 
     @property
-    def source(self) -> Artefact:
-        return Artefact(self.data["source"])
+    def source_uid(self) -> 'str':
+        return self.data["source"]["artefact"]["uid"]
 
     @property
-    def destination(self) -> Artefact:
-        return Artefact(self.project)
+    def destination_uid(self) -> 'str':
+        return self.data["destination"]["artefact"]["uid"]
