@@ -1,6 +1,7 @@
 
 # Library imports
 import json
+import functools
 
 # Project imports
 from base import Base
@@ -28,11 +29,14 @@ class JsonDataClass(Base):
 
 
 def autosave_json(f):
-    def wrapper(*args):
-        ret = f(*args)
+    @functools.wraps(f)
+    def wrapper(*args, **kwargs):
+        ret = f(*args, **kwargs)
         args[0].save()
         return ret
     return wrapper
+
+
 
 
 if __name__ == "__main__":

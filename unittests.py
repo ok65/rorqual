@@ -66,6 +66,16 @@ class DocumentTests(RorqualTestBase):
         art = doc.new_artefact("Test artefact")
         self.assertEqual(len(doc.get_artefact_list()), 1)
 
+    def test_move_artefact(self):
+        doc = self.project.new_document(uid="apl", title="Apples")
+        doc.new_artefact("Second")
+        doc.new_artefact("Third")
+        first = doc.new_artefact("First")
+        self.assertEqual(doc.get_artefact_list()[-1].content, "First")
+        doc.move_artefact(first.uid, 0)
+        self.assertEqual(doc.get_artefact_list()[-1].content, "Third")
+        pass
+
     def test_properties(self):
         TITLE = "apples"
         doc = self.project.new_document(uid="apl", title=TITLE)

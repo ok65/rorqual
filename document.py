@@ -37,6 +37,12 @@ class Document(JsonDataClass):
         index = index if index >= 0 else len(self.data["content"])
         return Artefact.new(self, uid=self.new_uid(), content=content, index=index)
 
+    @autosave_json
+    def move_artefact(self, uid: str, new_index: int):
+        old_index = [idx for idx, data in enumerate(self.get_artefact_list()) if data.uid == uid][0]
+        art_data = self.data["content"].pop(old_index)
+        self.data["content"].insert(new_index, art_data)
+
     def get_local_artefact(self, uid):
         a = [art for art in self.data["content"] if art.get("uid") == uid][0]
         return Artefact(uid=uid, document=self, )
