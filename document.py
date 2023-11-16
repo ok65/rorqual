@@ -5,6 +5,7 @@ import json
 
 # Project imports
 from json_data_class import JsonDataClass, autosave_json
+from linkage import Linkage
 from artefact import Artefact
 if TYPE_CHECKING:
     from project import Project
@@ -27,7 +28,7 @@ class Document(JsonDataClass):
 
     @classmethod
     def new(cls, project: 'Project', path: str, uid: str, title: str) -> 'Document':
-        setup_data = {"uid": uid, "title": title, "next_art_uid": 1, "content": [], "links": []}
+        setup_data = {"uid": uid, "title": title, "next_art_uid": 1, "content": [], "linkage": []}
         with open(path, "x") as fp:
             json.dump(setup_data, fp)
         return cls(project=project, uid=uid)
@@ -48,8 +49,10 @@ class Document(JsonDataClass):
         return Artefact(uid=uid, document=self, )
 
     @autosave_json
-    def new_linkage(self, source_artefact: Artefact, destination_doc_id: str, destination_art_id: str, link_type: str):
-        pass
+    def new_linkage(self, source_artefact: Artefact, destination_doc_uid: str, destination_art_uid: str, link_type: str)\
+            -> Linkage:
+        return Linkage.new(uid=self.new_uid(), source_artefact=source_artefact, link_type=link_type,
+                           destination_doc_uid=destination_doc_uid, destination_art_uid=destination_art_uid)
 
     def new_uid(self) -> str:
         uid = self.data["next_art_uid"]

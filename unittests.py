@@ -58,7 +58,7 @@ class DocumentTests(RorqualTestBase):
         doc = self.project.new_document(uid=UID, title=TITLE)
 
         self.assertIsInstance(doc, Document)
-        self.assertEquals(doc.title, TITLE)
+        self.assertEqual(doc.title, TITLE)
 
     def test_new_artefact(self):
         doc = self.project.new_document(uid="apl", title="Apples")
@@ -75,6 +75,18 @@ class DocumentTests(RorqualTestBase):
         doc.move_artefact(first.uid, 0)
         self.assertEqual(doc.get_artefact_list()[-1].content, "Third")
         pass
+
+    def test_create_linkage(self):
+        doc1 = self.project.new_document(uid="doc1", title="document 1")
+        doc2 = self.project.new_document(uid="doc2", title="document 2")
+
+        art1 = doc1.new_artefact("Apples")
+        art2 = doc2.new_artefact("Oranges")
+
+        link = doc1.new_linkage(source_artefact=art1, link_type="relation",
+                                destination_doc_uid=doc2.uid, destination_art_uid=art2.uid)
+
+
 
     def test_properties(self):
         TITLE = "apples"

@@ -14,15 +14,15 @@ class Linkage:
         self.data = [link for link in document.data["linkage"] if link["uid"] == uid][0]
 
     @classmethod
-    def new(cls, uid: str, source_artefact: 'Artefact', destination_artefact: 'Artefact', link_type: str):
+    def new(cls, uid: str, source_artefact: 'Artefact', destination_doc_uid, destination_art_uid: 'str', link_type: str):
 
         data = {"uid": uid,
                 "type": link_type,
                 "source":       {"document": {"uid": source_artefact.document.uid},
                                  "artefact": {"uid": source_artefact.uid}
                                  },
-                "destination":  {"document": {"uid": destination_artefact.document.uid},
-                                 "artefact": {"uid": destination_artefact.uid}
+                "destination":  {"document": {"uid": destination_doc_uid},
+                                 "artefact": {"uid": destination_art_uid}
                                  }
                 }
 

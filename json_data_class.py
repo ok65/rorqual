@@ -20,7 +20,6 @@ class JsonDataClass(Base):
             self.data = json.load(fp)
 
     def save(self):
-        print("saving")
         with open(self._file_path, "w+") as fp:
             json.dump(self.data, fp, sort_keys=False, indent=4)
 
