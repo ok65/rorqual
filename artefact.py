@@ -28,7 +28,7 @@ class Artefact(Base):
 
     @classmethod
     def new(cls, document: 'Document', uid: str, content: str, index: int):
-        document.data["content"].insert(index, {"uid": uid, "content": content})
+        document.data["content"].set(key=uid, value={"uid": uid, "content": content}, index=index)
         document.save()
         return cls(uid=uid, document=document)
 

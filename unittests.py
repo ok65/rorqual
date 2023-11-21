@@ -80,13 +80,16 @@ class DocumentTests(RorqualTestBase):
         doc1 = self.project.new_document(uid="doc1", title="document 1")
         doc2 = self.project.new_document(uid="doc2", title="document 2")
 
-        art1 = doc1.new_artefact("Apples")
-        art2 = doc2.new_artefact("Oranges")
+        source_art = doc1.new_artefact("Apples")
+        dest_art = doc2.new_artefact("Oranges")
 
-        link = doc1.new_linkage(source_artefact=art1, link_type="relation",
-                                destination_doc_uid=doc2.uid, destination_art_uid=art2.uid)
+        link = doc1.new_linkage(source_artefact=source_art, link_type="relation",
+                                destination_doc_uid=doc2.uid, destination_art_uid=dest_art.uid)
 
-
+        self.assertEqual(link.source_uid, source_art.uid)
+        self.assertEqual(link.destination_uid, dest_art.uid)
+        self.assertEqual(link.source_document_uid, doc1.uid)
+        self.assertEqual(link.destination_document_uid, doc1.uid)
 
     def test_properties(self):
         TITLE = "apples"

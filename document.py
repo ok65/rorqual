@@ -4,9 +4,10 @@ from typing import TYPE_CHECKING, Dict, List
 import json
 
 # Project imports
-from json_data_class import JsonDataClass, autosave_json
+from json_data_class import JsonDataClass, autosave_json, new_jdc_file
 from linkage import Linkage
 from artefact import Artefact
+from orderful_dict import OrderfulDict
 if TYPE_CHECKING:
     from project import Project
 
@@ -28,9 +29,8 @@ class Document(JsonDataClass):
 
     @classmethod
     def new(cls, project: 'Project', path: str, uid: str, title: str) -> 'Document':
-        setup_data = {"uid": uid, "title": title, "next_art_uid": 1, "content": [], "linkage": []}
-        with open(path, "x") as fp:
-            json.dump(setup_data, fp)
+        new_jdc_file(uid=uid, json_path=path, data_dict={"uid": uid, "title": title, "next_art_uid": 1,
+                                                         "content": OrderfulDict(), "linkage": []})
         return cls(project=project, uid=uid)
 
     @autosave_json

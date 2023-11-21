@@ -11,7 +11,8 @@ if TYPE_CHECKING:
 
 class Linkage:
     def __init__(self, document: 'Document', uid: str):
-        self.data = [link for link in document.data["linkage"] if link["uid"] == uid][0]
+        self.data = document.data.cut(f"linkage/{uid}")
+        #self.data = [link for link in document.data["linkage"] if link["uid"] == uid][0]
 
     @classmethod
     def new(cls, uid: str, source_artefact: 'Artefact', destination_doc_uid, destination_art_uid: 'str', link_type: str):
@@ -26,14 +27,22 @@ class Linkage:
                                  }
                 }
 
-        source_artefact.document.data["linkage"].append(data)
+        source_artefact.document.data[f"linkage/{uid}"] = data
 
         return cls(source_artefact.document, uid)
 
     @property
     def source_uid(self) -> 'str':
-        return self.data["source"]["artefact"]["uid"]
+        return self.data["source/artefact/uid"]
 
     @property
     def destination_uid(self) -> 'str':
-        return self.data["destination"]["artefact"]["uid"]
+        return self.data["destination/artefact/uid"]
+
+    @property
+    def source_document_uid(self):
+        return self.data["source/document/uid"]
+
+    @property
+    def destination_document_uid(self):
+        return self.data["source/document/uid"]
