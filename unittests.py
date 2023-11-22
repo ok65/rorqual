@@ -48,6 +48,32 @@ class ProjectTests(RorqualTestBase):
         art2 = self.project.find_artefact(art1.uid)
         self.assertEqual(art1.content, art2.content)
 
+    def test_find_links(self):
+        doc1 = self.project.new_document("D1", "Red")
+        doc2 = self.project.new_document("D2", "Blue")
+        doc3 = self.project.new_document("D3", "Green")
+
+        parent_art = doc1.new_artefact("Parent Artefact")
+
+        blue_art = doc2.new_artefact("Blue Artefact 1")
+        green_art1 = doc3.new_artefact("Green Artefact 1")
+        green_art2 = doc3.new_artefact("Green Artefact 2")
+
+        doc2.new_linkage(source_artefact=blue_art, destination_doc_uid=doc1.uid,
+                         destination_art_uid=parent_art.uid, link_type="Simple Link")
+
+        doc3.new_linkage(source_artefact=green_art1, destination_doc_uid=doc1.uid,
+                         destination_art_uid=parent_art.uid, link_type="Simple Link")
+
+        doc3.new_linkage(source_artefact=green_art2, destination_doc_uid=doc1.uid,
+                         destination_art_uid=parent_art.uid, link_type="Simple Link")
+
+        links = self.project.find_links(parent_art.uid)
+
+        self.assertEqual(len(links), 3)
+
+        self.assertEqual(links[0].destination_uid, parent_art.uid)
+
 
 class DocumentTests(RorqualTestBase):
 
@@ -62,18 +88,18 @@ class DocumentTests(RorqualTestBase):
 
     def test_new_artefact(self):
         doc = self.project.new_document(uid="apl", title="Apples")
-        self.assertEqual(len(doc.get_artefact_list()), 0)
+        self.assertEqual(len(doc.get_local_artefact_list()), 0)
         art = doc.new_artefact("Test artefact")
-        self.assertEqual(len(doc.get_artefact_list()), 1)
+        self.assertEqual(len(doc.get_local_artefact_list()), 1)
 
     def test_move_artefact(self):
         doc = self.project.new_document(uid="apl", title="Apples")
         doc.new_artefact("Second")
         doc.new_artefact("Third")
         first = doc.new_artefact("First")
-        self.assertEqual(doc.get_artefact_list()[-1].content, "First")
+        self.assertEqual(doc.get_local_artefact_list()[-1].content, "First")
         doc.move_artefact(first.uid, 0)
-        self.assertEqual(doc.get_artefact_list()[-1].content, "Third")
+        self.assertEqual(doc.get_local_artefact_list()[-1].content, "Third")
         pass
 
     def test_create_linkage(self):

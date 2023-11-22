@@ -19,7 +19,7 @@ class Document(JsonDataClass):
         super().__init__(uid, f"{self._project.path}//{uid}.json")
 
     @property
-    def title(self):
+    def title(self) -> str:
         return self.data["title"]
 
     @title.setter
@@ -30,7 +30,7 @@ class Document(JsonDataClass):
     @classmethod
     def new(cls, project: 'Project', path: str, uid: str, title: str) -> 'Document':
         new_jdc_file(uid=uid, json_path=path, data_dict={"uid": uid, "title": title, "next_art_uid": 1,
-                                                         "content": OrderfulDict(), "linkage": []})
+                                                         "content": OrderfulDict(), "linkage": {}})
         return cls(project=project, uid=uid)
 
     @autosave_json
@@ -39,14 +39,22 @@ class Document(JsonDataClass):
         return Artefact.new(self, uid=self.new_uid(), content=content, index=index)
 
     @autosave_json
-    def move_artefact(self, uid: str, new_index: int):
-        old_index = [idx for idx, data in enumerate(self.get_artefact_list()) if data.uid == uid][0]
-        art_data = self.data["content"].pop(old_index)
-        self.data["content"].insert(new_index, art_data)
+    def move_artefact(self, uid: str, new_index: int) -> None:
+        self.data["content"].move_key(uid, new_index)
 
-    def get_local_artefact(self, uid):
-        a = [art for art in self.data["content"] if art.get("uid") == uid][0]
-        return Artefact(uid=uid, document=self, )
+    def get_local_artefact(self, uid) -> Artefact:
+        if uid not in self.data["content"]:
+            raise IndexError(f"UID ({uid}) not found in document ({self.uid})")
+        return Artefact(uid=uid, document=self)
+
+    def get_local_artefact_links(self, destination_art_uid: str) -> List[Linkage]:
+        d = self.data["linkage"]
+
+        return [self.get_local_link(link["uid"]) for link in self.data["linkage"].values() if
+                link["destination"]["artefact"]["uid"] == destination_art_uid]
+
+    def get_local_link(self, uid) -> Linkage:
+        return Linkage(document=self, uid=uid)
 
     @autosave_json
     def new_linkage(self, source_artefact: Artefact, destination_doc_uid: str, destination_art_uid: str, link_type: str)\
@@ -59,8 +67,6 @@ class Document(JsonDataClass):
         self.data["next_art_uid"] += 1
         return str(uid)
 
-    def get_artefact_list(self) -> List:
-        artefacts = []
-        for d in self.data["content"]:
-            artefacts.append(self.get_local_artefact(d["uid"]))
-        return artefacts
+    def get_local_artefact_list(self) -> List:
+        return [self.get_local_artefact(d["uid"]) for d in self.data["content"].get_list()]
+

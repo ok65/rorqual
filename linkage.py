@@ -3,6 +3,7 @@
 from typing import TYPE_CHECKING
 
 # Project imports
+from posix_dict import PosixDict
 if TYPE_CHECKING:
     from project import Project
     from document import Document
@@ -12,7 +13,7 @@ if TYPE_CHECKING:
 class Linkage:
     def __init__(self, document: 'Document', uid: str):
         self.data = document.data.cut(f"linkage/{uid}")
-        #self.data = [link for link in document.data["linkage"] if link["uid"] == uid][0]
+
 
     @classmethod
     def new(cls, uid: str, source_artefact: 'Artefact', destination_doc_uid, destination_art_uid: 'str', link_type: str):
@@ -27,7 +28,7 @@ class Linkage:
                                  }
                 }
 
-        source_artefact.document.data[f"linkage/{uid}"] = data
+        source_artefact.document.data[f"linkage/{uid}"] = PosixDict(data)
 
         return cls(source_artefact.document, uid)
 

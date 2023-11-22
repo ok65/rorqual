@@ -40,6 +40,8 @@ class JsonDataClass(Base):
         if isinstance(data, dict):
             if "__OrderfulDict__" in data:
                 return OrderfulDict.unpack(data)
+            elif "__PosixDict__" in data:
+                return PosixDict.unpack(data)
         return data
 
     def lock(self):

@@ -1,12 +1,13 @@
 
 # Library imports
 from pathlib import PurePosixPath
+from typing import Dict, Optional
 
 
-class PosixDict():
+class PosixDict:
 
-    def __init__(self):
-        self._data = {}
+    def __init__(self, data_dict: Optional[Dict] = None):
+        self._data = data_dict if data_dict else {}
 
     def __getitem__(self, key):
         pointer = self._data
@@ -24,6 +25,15 @@ class PosixDict():
             pointer = pointer[path_chunk]
         pointer[final_path_part] = value
 
+    def values(self):
+        return self._data.values()
+
+    def keys(self):
+        return self._data.keys()
+
+    def items(self):
+        return self._data.items()
+
     def load(self, data: dict):
         self._data = data
 
@@ -34,4 +44,11 @@ class PosixDict():
 
     def dump(self) -> dict:
         return self._data
+
+    def pack(self):
+        return {"__PosixDict__": self._data}
+
+    @staticmethod
+    def unpack(packed: dict) -> 'PosixDict':
+        return PosixDict(data_dict=packed["__PosixDict__"])
 

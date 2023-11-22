@@ -3,6 +3,7 @@
 import json
 import os
 import uuid
+from typing import List
 
 # Project imports
 from json_data_class import JsonDataClass
@@ -55,6 +56,14 @@ class Project(JsonDataClass):
                 continue
             else:
                 return art
+
+    def find_links(self, art_uid: str) -> List[Linkage]:
+        links = []
+        # Horrible slow code to scan through every doc looking for an artefact
+        for doc_name in self.data["documents"]:
+            doc = self.open_document(doc_name)
+            links.extend(doc.get_local_artefact_links(art_uid))
+        return links
 
     def new_uid(self) -> str:
         return uuid.uuid4().hex
