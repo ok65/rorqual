@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, World!</title>
+
+    <!-- Include eel.js - note this file doesn't exist in the 'web' directory -->
+    <script type="text/javascript" src="/eel.js"></script>
+    <script type="text/javascript" src="/jquery.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function()
+      {
+          $("#mybutton").click(handle_button);
+          $("#myspan").text("Initial update");
+      });
+
+      function grab_input_js(){
+        return $("#myinput").val();
+      }
+
+      function handle_button(){
+        $("#myspan").text(eel.get_data_py());
+        console.log("button handle");
+      }
+
+    </script>
+  </head>
+
+  <body>
+
+
+    <form>
+      <input name="myinput"/>
+      <button name="mybutton">Click me</button>
+      <p name="myspan">I need to be updated</p>
+    </form>
+  </body>
+</html>

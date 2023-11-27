@@ -14,7 +14,6 @@ class Linkage:
     def __init__(self, document: 'Document', uid: str):
         self.data = document.data.cut(f"linkage/{uid}")
 
-
     @classmethod
     def new(cls, uid: str, source_artefact: 'Artefact', destination_doc_uid, destination_art_uid: 'str', link_type: str):
 
