@@ -16,6 +16,10 @@ def get_data_py():
     print(f"get_data_py() -> {count}")
     return count
 
+@eel.expose
+def log_py(msg):
+    print(f"js: {msg}")
+
 
 eel.start('hello.html', size=(300, 200))  # Start
 

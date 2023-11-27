@@ -1,37 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Hello, World!</title>
 
     <!-- Include eel.js - note this file doesn't exist in the 'web' directory -->
-    <script type="text/javascript" src="/eel.js"></script>
-    <script type="text/javascript" src="/jquery.js"></script>
-    <script type="text/javascript">
+    <script type="text/javascript" src="eel.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+      
+      
+      eel.log_py("Hello");
+      
       $(document).ready(function()
       {
-          $("#mybutton").click(handle_button);
+            console.log("jquery up");
+          $("#mybutton").click(function(){
+          eel.get_data_py()(update_div);
+          });
           $("#myspan").text("Initial update");
       });
 
-      function grab_input_js(){
-        return $("#myinput").val();
-      }
-
-      function handle_button(){
-        $("#myspan").text(eel.get_data_py());
-        console.log("button handle");
+      function update_div(msg)
+      {
+        $("#mydiv").text(msg);
+        console.log(msg);
       }
 
     </script>
   </head>
 
   <body>
-
-
-    <form>
-      <input name="myinput"/>
-      <button name="mybutton">Click me</button>
-      <p name="myspan">I need to be updated</p>
-    </form>
+    <button id="mybutton">Click me</button>
+    <div id="mydiv">I need to be updated</div>
   </body>
 </html>
