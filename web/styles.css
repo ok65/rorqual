@@ -1,13 +1,16 @@
 html
 {
 	font-family: Courier;
+	letter-spacing: 0 !important;
 }
+
 
 
 .box
 {
     padding: 1em;
-    background-color: grey;
+    //background-color: grey;
+    box-sizing: border-box;
 }
 
 .pure-g > div
