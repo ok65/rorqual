@@ -21,5 +21,5 @@ def log_py(msg):
     print(f"js: {msg}")
 
 
-eel.start('hello.html', size=(300, 200))  # Start
+eel.start('hello.html', size=(300, 200), allowed_extensions=[".html", ".js", ".css", ".woff", ".svg", ".svgz", ".png"])  # Start
 

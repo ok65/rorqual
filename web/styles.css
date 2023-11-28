@@ -1,0 +1,16 @@
+html
+{
+	font-family: Courier;
+}
+
+
+.box
+{
+    padding: 1em;
+    background-color: grey;
+}
+
+.pure-g > div
+{
+    box-sizing: border-box;
+}
