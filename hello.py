@@ -22,7 +22,7 @@ def get_data_py():
     return count
 
 @eel.expose
-def get_artefact_list():
+def get_artefacts():
     return data
 
 @eel.expose

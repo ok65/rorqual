@@ -16,10 +16,20 @@
 		$(document).ready(function()
 		{
 			console.log("ready");
-			add_artefact(["REQ11-22", "Have apples, be red"]);
-			add_artefact(["REQ11-22", "Have pears, be green"]);
+			
+			eel.get_artefacts()(add_artefacts);
 			
 		});
+
+		
+		function add_artefacts(data)
+		{
+			for(d of data)
+			{
+				add_artefact(d);
+			}
+		}
+
 
 	    function add_artefact(data)
 	    {
