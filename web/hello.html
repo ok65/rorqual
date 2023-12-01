@@ -16,8 +16,22 @@
 		$(document).ready(function()
 		{
 			console.log("ready");
+			add_artefact(["REQ11-22", "Have apples, be red"]);
+			add_artefact(["REQ11-22", "Have pears, be green"]);
+			
 		});
 
+	    function add_artefact(data)
+	    {
+	        var markup = "<tr>";
+	        for(d of data)
+	        {
+	            markup += "<td>"+d+"</td>";
+	        }
+	        markup += "</tr>";
+	        $(".artefact-table tbody").append(markup);
+	    }
+	    
 
     </script>
 </head>
@@ -40,19 +54,12 @@
 		
 		<!-- Main Content Column -->
 	    <div class="content">
+		    
+		    {{}}
+		    
 	        <table class="artefact-table">
 		        <tr> <th>ID</th> <th>CONTENT</th> <th>LINKS</th> <th>STATUS</th></tr>
 		        <tr> <td>REQ12345-134</td> <td>The application <span class="emphasis">shall</span> allow users to import a MS Word document preserving structure of document sections and paragraphs, rich text description of requirements and images.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Linked<br>Validated<br><br>Unverified</td></tr>
-		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
-		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
-		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
-		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
-		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
-		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
-		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
-		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
-		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
-		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
 		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
 	        </table>
 	    </div>
