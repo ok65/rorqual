@@ -2,21 +2,20 @@
 <html lang="en">
 <head>
 	<title>Hello, World!</title>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
-	<!-- <link rel="stylesheet" href="pure-min.css"> -->
 	<link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="eel.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <script>
      
-	    
-	    eel.log_py("Hello");
+	    $(function() {
+            $(".resizeable").resizable();
+            console.log("first stuff");
+         });
 	    
 		$(document).ready(function()
 		{
-		console.log("jquery up");
-		
+			console.log("ready");
 		});
 
 
@@ -26,65 +25,38 @@
 <body>
 
 	<!-- Overall layout container -->
-	<div id="layout" class="content pure-g">
+	<div class="layout">
 	   
 	    <!-- Menu Column -->
-		<div id="nav" class="pure-u-4-24">
-			<div class="pure-u box">
-				<ul>
-					<li>Apple</li>
-					<li>Orange</li>
-					<li>Pear</li>
-					<li>Pineapple</li>
-					<li>Mango</li>
-				</ul>
-			</div>
-	    </div>
-	
-		<!-- Content List Column -->
-	    <div id="list" class="pure-u-4-24">
-			<div class="pure-u box">
-	            <ul>
-					<li>Fuscia</li>
-					<li>Magenta</li>
-					<li>Teal</li>
-					<li>Magnolia</li>
-					<li>Amber</li>
-		            <li>Apricot</li>
-					<li>Azure</li>
-					<li>Beaver</li>
-					<li>Buff</li>
-					<li>Burgundy</li>
-				</ul>
-			</div>
-		   
-	    </div>
-	
-		<!-- Main Content Column -->
-	    <div id="main" class="pure-u-12-24">
-		    <div class="pure-u box">
-		        From Tilo Mitra at 3:56pm, April 3, 2021
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-				Duis aute irure dolor in reprehenderit in voluptate velit essecillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-				Aliquam ac feugiat dolor. Proin mattis massa sit amet enim iaculis tincidunt. Mauris tempor mi vitae sem aliquet pharetra. Fusce in dui purus, nec malesuada mauris. Curabitur ornare arcu quis mi blandit laoreet. Vivamus imperdiet fermentum mauris, ac posuere urna tempor at. Duis pellentesque justo ac sapien aliquet egestas. Morbi enim mi, porta eget ullamcorper at, pharetra id lorem.
-				Donec sagittis dolor ut quam pharetra pretium varius in nibh. Suspendisse potenti. Donec imperdiet, velit vel adipiscing bibendum, leo eros tristique augue, eu rutrum lacus sapien vel quam. Nam orci arcu, luctus quis vestibulum ut, ullamcorper ut enim. Morbi semper erat quis orci aliquet condimentum. Nam interdum mauris sed massa dignissim rhoncus.
-		    </div>
+		<div class="nav">
+			<ul>
+				<li>Apple</li>
+				<li>Orange</li>
+				<li>Pear</li>
+				<li>Pineapple</li>
+				<li>Mango</li>
+			</ul>
 	    </div>
 		
-		<!-- Content List Column -->
-	    <div id="props" class="pure-u-4-24">
-		    <div class="pure-u box">
-			    <ul>
-					<li>Largo</li>
-					<li>Adagio</li>
-					<li>Lento</li>
-					<li>Moderato</li>
-					<li>Allegro</li>
-		            <li>Vivace</li>
-					<li>Presto</li>
-				</ul>
-		    </div>
+		<!-- Main Content Column -->
+	    <div class="content">
+	        <table class="artefact-table">
+		        <tr> <th>ID</th> <th>CONTENT</th> <th>LINKS</th> <th>STATUS</th></tr>
+		        <tr> <td>REQ12345-134</td> <td>The application <span class="emphasis">shall</span> allow users to import a MS Word document preserving structure of document sections and paragraphs, rich text description of requirements and images.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Linked<br>Validated<br><br>Unverified</td></tr>
+		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
+		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
+		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
+		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
+		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
+		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
+		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
+		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
+		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
+		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
+		        <tr> <td>REQ12345-135</td> <td>The application <span class="emphasis">shall</span> allow users to create a new document from a chosen document template file preserving the structure of document sections and the definition and values of requirement attributes.</td><td>Derives from <br>SRS1234-78<br><br>Satisfies:<br>REQ1234-74<br>REQ1234-12</td><td>Unverified</td></tr>
+	        </table>
 	    </div>
+	
 		
 	</div>
 

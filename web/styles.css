@@ -6,14 +6,83 @@ html
 
 
 
+
 .box
 {
-    padding: 1em;
-    //background-color: grey;
+    padding: 10px;
+    /*background-color: grey;*/
     box-sizing: border-box;
 }
 
 .pure-g > div
 {
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
 }
+
+.artefact-column
+{
+    float: left;
+	background-color: blue;
+	/*width:  100px;*/
+	height: 100px;
+	padding: 0.2em;
+	margin: 0px;
+	text-align: left;
+	border: solid 1px black;
+}
+
+
+.artefact-table th
+{
+	background-color: limegreen;
+	color: white;
+	resize: horizontal !important;
+	overflow:auto;
+}
+.artefact-table
+{
+	border: none;
+}
+
+.artefact-table tr
+{
+	border-bottom: 1px dotted black;
+	padding: 5px;
+}
+
+.artefact-table td
+{
+	padding: 10px 5px 30px 5px;
+}
+
+.emphasis
+{
+	font-weight: bold;
+}
+
+
+.nav
+{
+	position: fixed;
+	top: 0px;
+	bottom: 0px;
+	background-color: #191818;
+	color: white;
+	overflow: auto;
+	width: 150px;
+}
+
+.content
+{
+	position: fixed;
+	top: 0px;
+	bottom: 0px;
+	left: 150px;
+	overflow: auto;
+	width: auto;
+	padding: 10px;
+}
+
+
+
+
